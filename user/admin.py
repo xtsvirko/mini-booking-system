@@ -3,6 +3,15 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext as _
 
 from .models import User
+from booking.models import Booking
+
+
+class BookingInline(admin.TabularInline):
+    model = Booking
+    extra = 0
+    readonly_fields = ("facility", "booking_date", "status", "created_at")
+    can_delete = False
+    show_change_link = True
 
 
 @admin.register(User)
@@ -38,3 +47,5 @@ class UserAdmin(DjangoUserAdmin):
     list_display = ("email", "first_name", "last_name", "is_staff")
     search_fields = ("email", "first_name", "last_name")
     ordering = ("email",)
+
+    inlines = [BookingInline]
