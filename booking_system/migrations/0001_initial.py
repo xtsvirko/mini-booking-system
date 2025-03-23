@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="bookings",
-                        to="booking.facility",
+                        to="booking_system.facility",
                     ),
                 ),
             ],

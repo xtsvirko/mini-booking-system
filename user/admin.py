@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext as _
 
 from .models import User
-from booking.models import Booking
+from booking_system.models import Booking
 
 
 class BookingInline(admin.TabularInline):
