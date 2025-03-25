@@ -1,12 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>Create a Booking</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Book</button>
-    </form>
-</div>
+  <form id="booking-form" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Book Now</button>
+  </form>
+
+  <div id="booking-result" class="mt-3"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("booking-form");
+      const resultDiv = document.getElementById("booking-result");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch("{% url 'booking_system:booking_create' %}", {
+          method: "POST",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            form.style.display = "none";
+
+            resultDiv.innerHTML = `
+              <div class="alert alert-success" role="alert">
+                <p>${data.message}</p>
+                <a href="{% url 'booking_system:booking_list' %}" class="btn btn-success mt-2">
+                  View My Bookings
+                </a>
+              </div>
+            `;
+          } else {
+            resultDiv.innerHTML = `
+              <div class="alert alert-danger" role="alert">
+                ${data.error || "Something went wrong."}
+              </div>
+            `;
+          }
+        })
+        .catch(err => {
+          resultDiv.innerHTML = `
+            <div class="alert alert-danger" role="alert">
+              Server error. Please try again later.
+            </div>
+          `;
+          console.error("AJAX error:", err);
+        });
+      });
+    });
+  </script>
 {% endblock %}
