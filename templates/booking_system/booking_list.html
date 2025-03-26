@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mt-3" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  <h1>
+    My bookings:
+  </h1>
+  {% if booking_list %}
+    <table class="table">
+      <tr>
+        <th>Booking date</th>
+        <th>Facility</th>
+        <th>Status</th>
+      </tr>
+
+      {% for booking in booking_list %}
+        <tr>
+          <td>{{ booking.booking_date }}</td>
+          <td>{{ booking.facility.name }}</td>
+          <td>{{ booking.status }}</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  {% else %}
+    <p>There are no booking yet!</p>
+  {% endif %}
+{% endblock %}

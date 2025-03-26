@@ -1,0 +1,22 @@
+<ul class="sidebar-nav list-group">
+  {% if  user.is_authenticated %}
+    <li class="list-group-item">User: {{ user.email }}</li>
+    <li class="list-group-item">
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-outline-secondary" type="submit">logout</button>
+      </form>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url "login" %}">Login</a>
+    </li>
+  {% endif %}
+  <br>
+  <li class="list-group-item">
+    <a href="{% url 'booking_system:facility_list' %}">Facilities</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url 'booking_system:booking_list' %}">Bookings</a>
+  </li>
+</ul>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Facilities:</h1>
+  {% if facility_list %}
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Capacity</th>
+        <th>Action</th>
+      </tr>
+
+      {% for facility in facility_list %}
+        <tr>
+          <td>{{ facility.name }}</td>
+          <td>{{ facility.location }}</td>
+          <td>{{ facility.capacity }}</td>
+          <td>
+            <a href="{% url 'booking_system:booking_create' %}?facility_id={{ facility.id }}" class="btn btn-primary">
+              Book Now
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no Facilities yet!</p>
+  {% endif %}
+{% endblock %}
