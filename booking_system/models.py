@@ -17,8 +17,8 @@ class Facility(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Facility"
-        verbose_name_plural = "Facilities"
+        verbose_name = _("Facility")
+        verbose_name_plural = _("Facilities")
 
 
 class Booking(models.Model):
@@ -37,9 +37,12 @@ class Booking(models.Model):
         Facility, on_delete=models.CASCADE, related_name="bookings"
     )
     status = models.CharField(
-        max_length=63, choices=StatusChoices.choices, default=StatusChoices.PENDING
+        max_length=63,
+        choices=StatusChoices.choices,
+        default=StatusChoices.PENDING,
+        db_index=True,
     )
-    booking_date = models.DateField()
+    booking_date = models.DateField(db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
