@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from datetime import date, timedelta
 
 from .models import Booking
 
@@ -19,20 +20,16 @@ class BookingForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        user = (
-            self.initial.get("user") or self.instance.user
-        )  # берём из initial или instance
+        user = self.initial.get("user") or self.instance.user
         facility = cleaned_data.get("facility")
         booking_date = cleaned_data.get("booking_date")
 
         if facility and booking_date and user:
-            from datetime import date, timedelta
 
             tomorrow = date.today() + timedelta(days=1)
             if booking_date < tomorrow:
                 raise ValidationError("You can only book starting from tomorrow.")
 
-            # Проверка на превышение capacity
             existing_bookings = Booking.objects.filter(
                 facility=facility,
                 booking_date=booking_date,
@@ -43,7 +40,6 @@ class BookingForm(forms.ModelForm):
                     f"No more available slots for {facility.name} on {booking_date}."
                 )
 
-            # Проверка на уникальность: пользователь уже бронировал этот день
             if Booking.objects.filter(
                 user=user,
                 facility=facility,

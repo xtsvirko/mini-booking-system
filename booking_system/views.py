@@ -21,7 +21,9 @@ class BookingListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Booking.objects.filter(user=self.request.user).select_related("facility")
+        return Booking.objects.filter(user=self.request.user).select_related(
+            "facility", "user"
+        )
 
 
 class BookingCreateView(LoginRequiredMixin, generic.CreateView):
