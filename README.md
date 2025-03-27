@@ -1,118 +1,41 @@
-# mini-booking-system
-![img.png](img.png)
+# 🏢 Mini Booking System
 
-📌 Django Take-Home Assignment: “Mini Booking System”
+A simple Django-based application for managing facility bookings. Users can view available facilities, make bookings, and receive confirmation notifications.
 
-📝 Project Brief
+---
 
-Build a small Django application for a simple booking system where users can book available slots
+## 🚀 Features
 
-for a facility.
+- User login and authenticated booking flow
+- Facility capacity enforcement
+- Prevention of duplicate bookings
+- Only future bookings allowed (starting from tomorrow)
+- Email notification simulated via Celery task
+- AJAX-based booking form for better user experience
+- Paginated lists for both facilities and bookings
 
-🎯 Key Features:
+---
 
-1. User Registration & Authentication (Django’s built-in auth system)
+## 🛠 Tech Stack
 
-2. Facility Model (e.g., name, location, capacity)
+- **Python 3.12+**
+- **Django**
+- **Celery**
+- **Redis** (used as the Celery broker)
+- **Bootstrap** (for styling)
 
-3. Booking Model (e.g., user, facility, date, status)
+---
 
-4. Django Forms for Booking Creation
+## 🐳 Run with Docker
 
-5. Class-Based Views (CBVs) for Booking Management
-
-6. Basic Templates for Facility & Booking Listings
-
-7. Admin Panel Customization (optional but good for extra points)
-
-8. Unit Tests for critical functionality
-
-9. Database Optimization Considerations (indexes, constraints, efficient queries)
-
-10. Dockerized Application (see details below)
-
-🚀 Docker Requirements
-
-•
-
-•
-
-•
-
-•
-
-The project should be fully containerized with a Dockerfile and docker-compose.yml.
-
-The application should run with:
-
-•
-
-Django backend in one container.
-
-•
-
-PostgreSQL database in another container.
-
-A simple README.md should include setup instructions (e.g., docker-compose up).
-
-Bonus if it includes environment variable management (.env file).
-
-💡 Assessment Criteria:•
-
-•
-
-•
-
-•
-
-•
-
-•
-
-Code Quality & Readability – Clean, modular, and maintainable code.
-
-Django Best Practices – Proper use of models, views, forms, and templates.
-
-Design Decisions – Scalable data models and well-structured views.
-
-Testing & Error Handling – Coverage for edge cases and robust form validation.
-
-Extensibility & Maintainability – How easily can features be added or modified?
-
-Docker Implementation – Proper separation of concerns, working Dockerfile, and
-
-docker-compose.
-
-⏳ Time & Expectations
-
-•
-
-•
-
-Time Estimate: ~1 week
-
-Submission: GitHub repo with a README explaining setup, design choices, and areas for
-
-improvement.
-
-🔥 Bonus Ideas (Optional, Extra Points)
-
-•
-
-•
-
-•
-
-•
-
-•
-
-AJAX for Asynchronous Booking (e.g., avoid page reloads when submitting forms).
-
-Celery for Background Tasks (e.g., sending booking confirmation emails).
-
-Custom User Model for Future Scalability.
-
-CSS Styling with Bootstrap/Tailwind for a better UI.
-
-Health Check Endpoint for Docker container monitoring.
+1. **Create a .env file**
+2. **Build and run containers**
+    ```bash
+    docker-compose up --build
+    ```
+3. **Create a superuser**
+    ```bash
+    docker-compose exec web python manage.py createsuperuser
+    ```
+##  🌐 Access the app
+   Web app: http://localhost:8000
